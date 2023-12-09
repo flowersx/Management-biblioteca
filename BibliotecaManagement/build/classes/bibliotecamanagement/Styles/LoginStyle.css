@@ -1,0 +1,55 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+
+.gradient {
+    -fx-background-color: linear-gradient(to bottom right, #614385 , #516395);
+}
+
+.white-form{
+    -fx-background-color: #fff;
+}
+
+.head-label{
+    -fx-border-color: #516395;
+    -fx-border-width: 0 5px 0 5px;
+    -fx-padding: 0 5px 0 5px;
+}
+
+.login-btn{
+    -fx-background-color: linear-gradient(to bottom right, #516395 , #7e94cd);
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-text-fill: #fff;
+}
+.login-btn:hover{
+    -fx-background-color: linear-gradient(to bottom right, #5976bc , #97b3f5);
+}
+
+.textfield{
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right, #5976bc, #97b3f5);
+    -fx-border-width: .5px;
+}
+.textfield:focused{
+    -fx-border-width: 2px;
+}
+
+.create-btn{
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-text-fill: #fff;
+    -fx-border-color: #fff;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+.create-btn:hover{
+    -fx-background-color: #7e94cd;
+}
+
+.book-icon{
+    -fx-fill: white;
+    -fx-font-size: 10em;
+}

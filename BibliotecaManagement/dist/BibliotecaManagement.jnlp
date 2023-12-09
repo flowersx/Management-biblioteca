@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="BibliotecaManagement.jnlp">
+  <information>
+    <title>BibliotecaManagement</title>
+    <vendor>flowersx</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="BibliotecaManagement.jar" size="3965" download="eager" />
+    <jar href="lib\fontawesomefx-8.2.jar" size="180341" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="800" height="600" main-class="bibliotecamanagement.BibliotecaManagement"  name="BibliotecaManagement" />
+  <update check="always"/>
+</jnlp>

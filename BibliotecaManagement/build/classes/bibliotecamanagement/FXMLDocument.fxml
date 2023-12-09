@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <AnchorPane prefHeight="405.0" prefWidth="300.0" styleClass="gradient" stylesheets="@Styles/LoginStyle.css">
+               <children>
+                  <Label layoutX="24.0" layoutY="295.0" text="Cont nou" textFill="WHITE">
+                     <font>
+                        <Font name="ROGFonts-Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="24.0" layoutY="332.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" styleClass="create-btn" stylesheets="@Styles/LoginStyle.css" text="Inregistrare">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="125.0" layoutY="80.0" textFill="WHITE">
+                     <font>
+                        <Font name="ROGFonts-Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="138.0" layoutY="52.0" maxWidth="150.0" text="Manager Biblioteca" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="ROGFonts-Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIcon fill="WHITE" glyphName="BOOK" layoutX="14.0" layoutY="127.0" size="10em" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="300.0" layoutY="5.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form" stylesheets="@Styles/LoginStyle.css">
+               <children>
+                  <Label layoutX="116.0" layoutY="61.0" styleClass="head-label" stylesheets="@Styles/LoginStyle.css" text="Login" textFill="#516395">
+                     <font>
+                        <Font name="ROGFonts-Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="43.0" layoutY="117.0" prefHeight="30.0" prefWidth="220.0" promptText="Utilizator" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+                  <TextField layoutX="43.0" layoutY="170.0" prefHeight="30.0" prefWidth="220.0" promptText="Parola" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+                  <Button layoutX="70.0" layoutY="284.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" styleClass="login-btn" stylesheets="@Styles/LoginStyle.css" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Button>
+                  <Hyperlink layoutX="64.0" layoutY="220.0" text="Ati uitat utlizatorul sau parola?" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
