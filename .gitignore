@@ -22,3 +22,11 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+BibliotecaManagement/build/built-jar.properties
+BibliotecaManagement/manifest.mf
+BibliotecaManagement/nbproject/private/retriever/catalog.xml
+BibliotecaManagement/nbproject/private/private.xml
+BibliotecaManagement/nbproject/private/configs/Run_as_WebStart.properties
+BibliotecaManagement/nbproject/private/configs/Run_in_Browser.properties
+BibliotecaManagement/nbproject/configs/Run_in_Browser.properties
+BibliotecaManagement/nbproject/configs/Run_as_WebStart.properties
