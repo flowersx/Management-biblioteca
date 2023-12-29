@@ -43,13 +43,13 @@ public class FXMLDocumentController implements Initializable {
     private Button back_button_fp;
 
     @FXML
+    private Button buton_inregistrare;
+
+    @FXML
     private PasswordField confirmare_parola_fp;
 
     @FXML
     private AnchorPane forgot_password;
-
-    @FXML
-    private Button inregistare_buton;
 
     @FXML
     private AnchorPane inregistare_form;
@@ -111,11 +111,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField utilizator_fp;
 
-    @FXML
-    void butonInregistrare(ActionEvent event) {
-
-    }
-
     private Connection connect;
     private PreparedStatement prepare;
     private Result result;
@@ -169,6 +164,74 @@ public class FXMLDocumentController implements Initializable {
         login_form.setVisible(false);
 
         forgotPasswordQuestionList();
+    }
+
+    public void changePassword() {
+        if (confirmare_parola_fp.getText().isEmpty() || parola_noua_fp.getText().isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle(Constants.ErrorMessages.TitluEroare);
+            alert.setHeaderText(null);
+            alert.setContentText(Constants.ErrorMessages.BlankFields);
+            alert.showAndWait();
+        } else {
+            if (confirmare_parola_fp.getText().equals(parola_noua_fp.getText())) {
+                connect = database.connectDB();
+                try {
+                    String getDate = "SELECT date FROM users WHERE username ='"
+                            + utilizator_fp.getText() + "'";
+                    ResultSet result;
+                    prepare = connect.prepareStatement(getDate);
+                    result = prepare.executeQuery();
+                    String date = "";
+                    if (result.next()) {
+                        date = result.getString("date");
+                    }
+                    String updatePassword = "UPDATE users SET password='"
+                            + parola_noua_fp.getText() + "', date='"
+                            + date + "' WHERE username = '"
+                            + utilizator_fp.getText() + "'";
+                    prepare = connect.prepareStatement(updatePassword);
+                    prepare.executeUpdate();
+
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle(Constants.ErrorMessages.TitluInformatie);
+                    alert.setHeaderText(null);
+                    alert.setContentText(Constants.ErrorMessages.ParolaActualizata);
+                    alert.showAndWait();
+
+                    login_form.setVisible(true);
+                    reset_password.setVisible(false);
+
+                    clearResetPassword();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle(Constants.ErrorMessages.TitluEroare);
+                alert.setHeaderText(null);
+                alert.setContentText(Constants.ErrorMessages.PasswordDontMatch);
+                alert.showAndWait();
+            }
+        }
+    }
+
+    public void BackToLoginForm() {
+        forgot_password.setVisible(false);
+        login_form.setVisible(true);
+    }
+
+    public void BackToQuestionForm() {
+        forgot_password.setVisible(true);
+        reset_password.setVisible(false);
+    }
+
+    public void clearResetPassword() {
+        parola_noua_fp.setText(Constants.Utils.EMPTY_STRING);
+        confirmare_parola_fp.setText(Constants.Utils.EMPTY_STRING);
+        intrebari_fp_form.getSelectionModel().clearSelection();
+        utilizator_fp.setText(Constants.Utils.EMPTY_STRING);
+        raspuns_fp_form.setText(Constants.Utils.EMPTY_STRING);
     }
 
     public void proceedButton() {
@@ -254,6 +317,7 @@ public class FXMLDocumentController implements Initializable {
                 || inregistare_intrebare.getSelectionModel().getSelectedItem() == null
                 || inregistare_utilizator.getText().isEmpty()) {
             alert = new Alert(AlertType.ERROR);
+
             alert.setTitle(Constants.ErrorMessages.TitluEroare);
             alert.setHeaderText(null);
             alert.setContentText(Constants.ErrorMessages.BlankFields);

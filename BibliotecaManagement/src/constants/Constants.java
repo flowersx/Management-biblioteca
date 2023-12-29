@@ -25,10 +25,12 @@ public class Constants {
         public static final String PasswordTooShort = "Parola trebuie sa aiba minim 8 caractere";
         public static final String WrongUsernameOrPassword = "Nume de utilizator sau parola gresite!";
         public static final String WrongInformations = "Informatii incorecte";
+        public static final String PasswordDontMatch = "Parolele trebuie sa coincida";
         
         public static final String TitluInformatie = "Mesaj de informare";
         public static final String InregistrareCont = "Contul a fost inregistrat cu succes!";
         public static final String LoginCont = "Logarea a fost cu succes!";
+        public static final String ParolaActualizata = "Parola a fost actualizata cu succes!";
     }
     
     public class Utils{
