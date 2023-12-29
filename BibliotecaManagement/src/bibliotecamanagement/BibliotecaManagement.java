@@ -19,8 +19,6 @@ public class BibliotecaManagement extends Application {
         Scene scene = new Scene(root);
         
         stage.setTitle("Management biblioteca");
-        stage.setMinHeight(400);
-        stage.setMinWidth(600);
         
         stage.setScene(scene);
         stage.show();

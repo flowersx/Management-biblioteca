@@ -17,40 +17,89 @@
          <children>
             <AnchorPane fx:id="inregistare_form" prefHeight="405.0" prefWidth="300.0" styleClass="white-form" stylesheets="@Styles/LoginStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextField fx:id="inregistare_raspuns" layoutX="44.0" layoutY="222.0" prefHeight="30.0" prefWidth="220.0" promptText="Raspuns" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+                  <TextField fx:id="inregistare_raspuns" layoutX="44.0" layoutY="222.0" onAction="#butonInregistrare" prefHeight="30.0" prefWidth="220.0" promptText="Raspuns" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
                   <Label layoutX="53.0" layoutY="41.0" styleClass="head-label" stylesheets="@Styles/LoginStyle.css" text="Creare cont" textFill="#516395">
                      <font>
                         <Font name="ROGFonts-Regular" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="inregistare_utilizator" layoutX="44.0" layoutY="87.0" prefHeight="30.0" prefWidth="220.0" promptText="Utilizator" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+                  <TextField fx:id="inregistare_utilizator" layoutX="44.0" layoutY="87.0" onAction="#butonInregistrare" prefHeight="30.0" prefWidth="220.0" promptText="Utilizator" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
                   <Button fx:id="inregistare_buton" layoutX="69.0" layoutY="348.0" mnemonicParsing="false" onAction="#butonInregistrare" prefHeight="30.0" prefWidth="160.0" styleClass="login-btn" stylesheets="@Styles/LoginStyle.css" text="Creare cont" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
                   </Button>
-                  <ComboBox fx:id="inregistare_intrebare" layoutX="44.0" layoutY="177.0" prefHeight="30.0" prefWidth="220.0" promptText="Intrebare?" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
-                  <PasswordField fx:id="inregistare_parola" layoutX="44.0" layoutY="131.0" prefHeight="30.0" prefWidth="220.0" promptText="Parola" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+                  <ComboBox fx:id="inregistare_intrebare" layoutX="44.0" layoutY="177.0" onAction="#butonInregistrare" prefHeight="30.0" prefWidth="220.0" promptText="Intrebare?" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+                  <PasswordField fx:id="inregistare_parola" layoutX="44.0" layoutY="131.0" onAction="#butonInregistrare" prefHeight="30.0" prefWidth="220.0" promptText="Parola" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="login_form" layoutX="300.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form" stylesheets="@Styles/LoginStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="reset_password" layoutX="300.0" layoutY="3.0" prefHeight="405.0" prefWidth="300.0" styleClass="white-form" stylesheets="@Styles/LoginStyle.css" visible="false">
+               <children>
+                  <Label layoutX="12.0" layoutY="33.0" styleClass="head-label" stylesheets="@Styles/LoginStyle.css" text="Forgot Password" textFill="#516395">
+                     <font>
+                        <Font name="ROGFonts-Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="reset_passwordButton" layoutX="71.0" layoutY="253.0" mnemonicParsing="false" onAction="#butonLogin" prefHeight="30.0" prefWidth="160.0" styleClass="login-btn" stylesheets="@Styles/LoginStyle.css" text="Resetare parola!" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="back_button_fp" layoutX="102.0" layoutY="348.0" mnemonicParsing="false" onAction="#butonLogin" prefHeight="23.0" prefWidth="94.0" styleClass="login-btn" stylesheets="@Styles/LoginStyle.css" text="Inapoi" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="ANGLE_LEFT" size="1.5em" />
+                     </graphic>
+                  </Button>
+                  <PasswordField fx:id="parola_noua_fp" layoutX="41.0" layoutY="128.0" prefHeight="30.0" prefWidth="225.0" promptText="Parola Noua" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+                  <PasswordField fx:id="confirmare_parola_fp" layoutX="41.0" layoutY="177.0" prefHeight="30.0" prefWidth="225.0" promptText="Confirma Parola" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="forgot_password" layoutX="300.0" layoutY="2.0" prefHeight="405.0" prefWidth="300.0" styleClass="white-form" stylesheets="@Styles/LoginStyle.css" visible="false">
+               <children>
+                  <Label layoutX="12.0" layoutY="33.0" styleClass="head-label" stylesheets="@Styles/LoginStyle.css" text="Forgot Password" textFill="#516395">
+                     <font>
+                        <Font name="ROGFonts-Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="proceed_button" layoutX="71.0" layoutY="253.0" mnemonicParsing="false" onAction="#proceedButton" prefHeight="30.0" prefWidth="160.0" styleClass="login-btn" stylesheets="@Styles/LoginStyle.css" text="Mai departe!" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Button>
+                  <ComboBox fx:id="intrebari_fp_form" layoutX="51.0" layoutY="159.0" prefHeight="30.0" prefWidth="201.0" promptText="Intrebare" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+                  <TextField fx:id="raspuns_fp_form" layoutX="52.0" layoutY="195.0" prefHeight="30.0" prefWidth="201.0" promptText="Raspuns" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+                  <Button fx:id="back_button_fp" layoutX="102.0" layoutY="348.0" mnemonicParsing="false" onAction="#butonLogin" prefHeight="23.0" prefWidth="94.0" styleClass="login-btn" stylesheets="@Styles/LoginStyle.css" text="Inapoi" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="ANGLE_LEFT" size="1.5em" />
+                     </graphic>
+                  </Button>
+                  <TextField fx:id="utilizator_fp" layoutX="50.0" layoutY="123.0" prefHeight="30.0" prefWidth="201.0" promptText="Nume utilizator" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="login_form" layoutX="300.0" prefHeight="405.0" prefWidth="300.0" styleClass="white-form" stylesheets="@Styles/LoginStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="116.0" layoutY="61.0" styleClass="head-label" stylesheets="@Styles/LoginStyle.css" text="Login" textFill="#516395">
                      <font>
                         <Font name="ROGFonts-Regular" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="login_utilizator" layoutX="43.0" layoutY="117.0" prefHeight="30.0" prefWidth="220.0" promptText="Utilizator" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
-                  <TextField fx:id="login_parola" layoutX="43.0" layoutY="170.0" prefHeight="30.0" prefWidth="220.0" promptText="Parola" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
-                  <Button fx:id="login_btnLogin" layoutX="70.0" layoutY="284.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" styleClass="login-btn" stylesheets="@Styles/LoginStyle.css" text="Login" textFill="WHITE">
+                  <TextField fx:id="login_utilizator" layoutX="43.0" layoutY="117.0" onAction="#butonLogin" prefHeight="30.0" prefWidth="220.0" promptText="Utilizator" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
+                  <Button fx:id="login_btnLogin" layoutX="70.0" layoutY="284.0" mnemonicParsing="false" onAction="#butonLogin" prefHeight="30.0" prefWidth="160.0" styleClass="login-btn" stylesheets="@Styles/LoginStyle.css" text="Login" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
                   </Button>
-                  <Hyperlink fx:id="login_parolaUitata" layoutX="64.0" layoutY="220.0" text="Ati uitat utlizatorul sau parola?" />
+                  <Hyperlink fx:id="login_parolaUitata" layoutX="64.0" layoutY="220.0" onAction="#switchForgotPassword" text="Ati uitat utlizatorul sau parola?" />
+                  <PasswordField fx:id="login_parola" layoutX="43.0" layoutY="158.0" onAction="#butonLogin" prefHeight="30.0" prefWidth="220.0" promptText="Parola" styleClass="textfield" stylesheets="@Styles/LoginStyle.css" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="login_sideForm" prefHeight="405.0" prefWidth="300.0" styleClass="gradient" stylesheets="@Styles/LoginStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="login_sideForm" prefHeight="410.0" prefWidth="300.0" styleClass="gradient" stylesheets="@Styles/LoginStyle.css">
                <children>
                   <Label layoutX="24.0" layoutY="295.0" text="Cont nou" textFill="WHITE">
                      <font>

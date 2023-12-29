@@ -22,9 +22,13 @@ public class Constants {
     public class ErrorMessages {
         public static final String TitluEroare = "Mesaj de eroare!";
         public static final String BlankFields = "Va rog completati toate casutele!";
+        public static final String PasswordTooShort = "Parola trebuie sa aiba minim 8 caractere";
+        public static final String WrongUsernameOrPassword = "Nume de utilizator sau parola gresite!";
+        public static final String WrongInformations = "Informatii incorecte";
         
         public static final String TitluInformatie = "Mesaj de informare";
         public static final String InregistrareCont = "Contul a fost inregistrat cu succes!";
+        public static final String LoginCont = "Logarea a fost cu succes!";
     }
     
     public class Utils{
