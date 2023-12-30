@@ -1,0 +1,44 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Dec 30, 2023, 12:16:43 PM
+    Author     : Florin
+*/
+
+.header{
+    -fx-background-color: linear-gradient(to bottom right, #516395 , #7e94cd);
+}
+
+.nav-form{
+    -fx-background-color: linear-gradient(to bottom right, #614385 , #516395);
+}
+
+.nav-btn{
+    -fx-background-color: linear-gradient(to bottom right, #516395 , #7e94cd);
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-text-fill: #fff;
+}
+
+.nav-btn:hover{
+   -fx-background-color: #fff;
+   -fx-text-fill: #000;
+}
+
+.logout-btn{
+    -fx-background-color: #106abf;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+    -fx-background-radius: 50px;
+}
+
+.logout-btn:hover{
+    -fx-background-color: #f51302;
+}
+
+.shadow{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 0, 0);
+}
