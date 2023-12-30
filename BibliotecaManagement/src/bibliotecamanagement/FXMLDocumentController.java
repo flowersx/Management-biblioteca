@@ -24,7 +24,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -34,6 +37,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.naming.spi.DirStateFactory.Result;
 
@@ -297,6 +301,21 @@ public class FXMLDocumentController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText(Constants.ErrorMessages.LoginCont);
                     alert.showAndWait();
+                    
+                    //practic linkuim main form 
+                    Parent root = FXMLLoader.load(getClass().getResource("mainForm.fxml"));
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(root);
+                    
+                    stage.setTitle("Manager de biblioteca");
+                    stage.setMinWidth(1100);
+                    stage.setMinHeight(600);
+                    
+                    stage.setScene(scene);
+                    stage.show();
+                    
+                    login_btnLogin.getScene().getWindow().hide();
+                    
                 } else { // Daca nu e cu succes facem display la un mesaj de eroare
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle(Constants.ErrorMessages.TitluEroare);
