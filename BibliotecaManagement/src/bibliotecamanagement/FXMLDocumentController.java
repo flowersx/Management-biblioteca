@@ -40,6 +40,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.naming.spi.DirStateFactory.Result;
+import models.data;
 
 public class FXMLDocumentController implements Initializable {
 
@@ -296,6 +297,10 @@ public class FXMLDocumentController implements Initializable {
                 result = prepare.executeQuery();
                 // Daca login e cu succes mergem mai departe
                 if (result.next()) {
+                    
+                    // Ca sa putem luea numele utilizatorului logat
+                    data.username = login_utilizator.getText();
+                    
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle(Constants.ErrorMessages.TitluInformatie);
                     alert.setHeaderText(null);
@@ -307,7 +312,7 @@ public class FXMLDocumentController implements Initializable {
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);
                     
-                    stage.setTitle("Manager de biblioteca");
+                    stage.setTitle(Constants.Utils.APP_TITLE);
                     stage.setMinWidth(1100);
                     stage.setMinHeight(600);
                     

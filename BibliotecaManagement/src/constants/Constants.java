@@ -6,7 +6,7 @@ package constants;
 
 /**
  *
- * @author sbaro
+ * @author Florin
  */
 public class Constants {
 
@@ -18,6 +18,8 @@ public class Constants {
         public static final String Question_4 = "Care a fost prima ta masina?";
         public static final String Question_5 = "Cum o cheama pe mama ta?";
     }
+    
+    public static String[] TipurCarti = {"Istorie", "Sci-fi", "Dragoste", "Actiune", "Romane"};
     
     public class ErrorMessages {
         public static final String TitluEroare = "Mesaj de eroare!";
@@ -31,9 +33,12 @@ public class Constants {
         public static final String InregistrareCont = "Contul a fost inregistrat cu succes!";
         public static final String LoginCont = "Logarea a fost cu succes!";
         public static final String ParolaActualizata = "Parola a fost actualizata cu succes!";
+        
+        public static final String SignOut = "Sunteti siguri ca doriti sa parasiti sesiunea?";
     }
     
     public class Utils{
         public static final String EMPTY_STRING = "";
+        public static final String APP_TITLE = "Manager Biblioteca";
     }
 }
