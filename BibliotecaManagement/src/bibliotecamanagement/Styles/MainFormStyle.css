@@ -9,6 +9,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .header{
     -fx-background-color: linear-gradient(to bottom right, #516395 , #7e94cd);
+    -fx-border-color: #fff;
+    -fx-border-width: 0 0 0.8px 0;
 }
 
 .nav-form{
@@ -24,8 +26,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .nav-btn:hover{
-   -fx-background-color: #fff;
-   -fx-text-fill: #000;
+    -fx-background-color: #fff;
+    -fx-text-fill: #000;
 }
 
 .logout-btn{
@@ -41,4 +43,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .shadow{
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 0, 0);
+}
+
+.white-background{
+    -fx-background-color: #fff;
+}
+
+.radius{
+    -fx-background-radius: 8px;
+}
+
+.transparent{
+    -fx-background-color: transparent;
 }
