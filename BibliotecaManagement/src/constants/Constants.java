@@ -19,7 +19,7 @@ public class Constants {
         public static final String Question_5 = "Cum o cheama pe mama ta?";
     }
     
-    public static String[] TipurCarti = {"Istorie", "Sci-fi", "Dragoste", "Actiune", "Romane"};
+    public static String[] TipurCarti = {"Istorie", "Sci-fi", "Dragoste", "Actiune", "Romane", "Biografie", "Comedie", "Teatru"};
     
     public class ErrorMessages {
         public static final String TitluEroare = "Mesaj de eroare!";
@@ -33,8 +33,10 @@ public class Constants {
         public static final String InregistrareCont = "Contul a fost inregistrat cu succes!";
         public static final String LoginCont = "Logarea a fost cu succes!";
         public static final String ParolaActualizata = "Parola a fost actualizata cu succes!";
+        public static final String CarteaAdaugata = "Cartea a fost inregistrata cu succes!";
         
         public static final String SignOut = "Sunteti siguri ca doriti sa parasiti sesiunea?";
+        public static final String Confirmare = "Mesaj de confirmare!";
     }
     
     public class Utils{

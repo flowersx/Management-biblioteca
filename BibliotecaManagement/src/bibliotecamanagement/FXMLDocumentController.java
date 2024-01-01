@@ -356,7 +356,7 @@ public class FXMLDocumentController implements Initializable {
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle(Constants.ErrorMessages.TitluEroare);
                     alert.setHeaderText(null);
-                    alert.setContentText(inregistare_utilizator.getText() + "is already taken!");
+                    alert.setContentText("Numele de utilizator " + inregistare_utilizator.getText() + " este deja folosit!");
                     alert.showAndWait();
                 } else if (inregistare_parola.getText().length() < 8) {
                     alert = new Alert(AlertType.ERROR);
