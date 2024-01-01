@@ -206,7 +206,7 @@ public class mainFormController implements Initializable {
                     alert.showAndWait();
                 } else {
                     // inseram datele din fielduri in tabel
-                    String insert = "INSERT INTO inventar_carti " 
+                    String insert = "INSERT INTO inventar_carti "
                             + "(id_carte, nume_carte, descriere_carte, pret_carte, date, gen_carte, image, stoc_carte) "
                             + "VALUES(?,?,?,?,?,?,?,?)";
                     prepare = connect.prepareStatement(insert);
@@ -227,7 +227,7 @@ public class mainFormController implements Initializable {
                     prepare.setString(7, imagePath);
                     prepare.setString(8, inventar_Stoc.getText());
                     prepare.executeUpdate();
-                    
+
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle(Constants.ErrorMessages.TitluInformatie);
                     alert.setHeaderText(null);
@@ -243,8 +243,92 @@ public class mainFormController implements Initializable {
             }
         }
     }
-    
-    public void inventarClearBtn(){
+
+    public void inventarSelectBook() {
+        // selectam din tabel respectiva carte si completam informatiile ei in field-uri
+        CarteData carte = inventar_tabel.getSelectionModel().getSelectedItem();
+        int number = inventar_tabel.getSelectionModel().getSelectedIndex();
+        if ((number - 1) < -1) {
+            return;
+        }
+        inventar_ID.setText(carte.getIdCarte());
+        inventar_Nume.setText(carte.getNumeCarte());
+        inventar_Descriere.setText(carte.getDescriereCarte());
+        inventar_Pret.setText(String.valueOf(carte.getPretCarte()));
+        inventar_Stoc.setText(String.valueOf(carte.getStocCarte()));
+        data.path = carte.getImage();
+        String path = "File:" + carte.getImage();
+        data.date = String.valueOf(carte.getDate());
+        data.id = carte.getId();
+        image = new Image(path, 120, 140, false, true);
+        inventar_image.setImage(image);
+
+    }
+
+    public void inventarUpdateBtn() {
+        // facem aceeasi verificare ca atunci cand adaugam o carte
+        if (inventar_ID.getText().isEmpty()
+                || inventar_Nume.getText().isEmpty()
+                || inventar_Pret.getText().isEmpty()
+                || inventar_Stoc.getText().isEmpty()
+                || inventar_Gen.getSelectionModel().getSelectedItem() == null
+                || inventar_Descriere.getText().isEmpty()
+                || data.path == null || data.id == 0) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle(Constants.ErrorMessages.TitluEroare);
+            alert.setHeaderText(null);
+            alert.setContentText(Constants.ErrorMessages.BlankFields);
+            alert.showAndWait();
+        } else {
+            // cream qury de actualizare cu datele din fields
+            String path = data.path;
+            path = path.replace("\\", "\\\\");
+            String updateCarte = "UPDATE inventar_carti SET "
+                    + "id_carte ='" + inventar_ID.getText()
+                    + "', nume_carte='" + inventar_Nume.getText()
+                    + "', descriere_carte='" + inventar_Descriere.getText()
+                    + "', pret_carte='" + inventar_Pret.getText()
+                    + "', gen_carte='" + (String) inventar_Gen.getSelectionModel().getSelectedItem()
+                    + "', stoc_carte='" + inventar_Stoc.getText()
+                    + "', image='" + path
+                    + "', date='" + data.date
+                    + "' WHERE id = " + data.id;
+            connect = database.connectDB();
+            try {
+                // dialog de confirmare
+                alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle(Constants.ErrorMessages.Confirmare);
+                alert.setHeaderText(null);
+                alert.setContentText(Constants.ErrorMessages.ActualizareCarte);
+                Optional<ButtonType> option = alert.showAndWait();
+                // daca este confirmat executam query, dam refresh la data si facem clear la fields
+                if (option.get().equals(ButtonType.OK)) {
+                    prepare = connect.prepareStatement(updateCarte);
+                    prepare.executeUpdate();
+                    InventoryShowData();
+                    inventarClearBtn();
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle(Constants.ErrorMessages.TitluInformatie);
+                    alert.setHeaderText(null);
+                    alert.setContentText(Constants.ErrorMessages.CarteActualizata);
+                    alert.showAndWait();
+                } else {
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle(Constants.ErrorMessages.TitluEroare);
+                    alert.setHeaderText(null);
+                    alert.setContentText(Constants.ErrorMessages.ActualizareAnulata);
+                    alert.showAndWait();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    // facem clear la toate fieldurile
+    public void inventarClearBtn() {
         inventar_ID.setText(Constants.Utils.EMPTY_STRING);
         inventar_Nume.setText(Constants.Utils.EMPTY_STRING);
         inventar_Descriere.setText(Constants.Utils.EMPTY_STRING);
@@ -253,7 +337,9 @@ public class mainFormController implements Initializable {
         inventar_Stoc.setText(Constants.Utils.EMPTY_STRING);
         data.path = Constants.Utils.EMPTY_STRING;
         inventar_image.setImage(null);
-        
+        data.id = 0;
+        data.path = Constants.Utils.EMPTY_STRING;
+
     }
 
     // butonul de import pt a adauga imaginea cartii

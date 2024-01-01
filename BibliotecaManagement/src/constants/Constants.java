@@ -34,9 +34,12 @@ public class Constants {
         public static final String LoginCont = "Logarea a fost cu succes!";
         public static final String ParolaActualizata = "Parola a fost actualizata cu succes!";
         public static final String CarteaAdaugata = "Cartea a fost inregistrata cu succes!";
+        public static final String CarteActualizata = "Cartea a fost actualizata cu succes!";
         
         public static final String SignOut = "Sunteti siguri ca doriti sa parasiti sesiunea?";
+        public static final String ActualizareCarte = "Sunteti sigur ca doriti sa actualizati informatiile cartii?";
         public static final String Confirmare = "Mesaj de confirmare!";
+        public static final String ActualizareAnulata = "Actiunea de actualizare a fost anulata!";
     }
     
     public class Utils{
