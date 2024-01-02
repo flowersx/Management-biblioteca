@@ -50,7 +50,7 @@ public class CardCarteController implements Initializable {
         card_numeCarte.setText(carteData.getNumeCarte());
         card_pretCarte.setText(String.valueOf(carteData.getClass())+ " RON");
         String path = "File:" + carteData.getImage();
-        image = new Image(path, 190, 94, false, true);
+        image = new Image(path, 190, 88, false, true);
         card_imageView.setImage(image);
         
     }

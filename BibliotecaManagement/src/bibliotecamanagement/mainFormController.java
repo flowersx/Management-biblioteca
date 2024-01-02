@@ -23,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -137,8 +138,8 @@ public class mainFormController implements Initializable {
 
     @FXML
     private Button signOut_btn;
-    
-     @FXML
+
+    @FXML
     private Button meniu_DeleteBtn;
 
     @FXML
@@ -179,8 +180,8 @@ public class mainFormController implements Initializable {
     private ResultSet result;
 
     private Image image;
-    
-    private ObservableList<CarteData> cardListData;
+
+    private ObservableList<CarteData> cardListData = FXCollections.observableArrayList();
 
     // practic aici unim toate informatiile pentru a le afisa din tabel
     public ObservableList<CarteData> inventoryDataList() {
@@ -281,12 +282,72 @@ public class mainFormController implements Initializable {
             }
         }
     }
-    
+
     // aici ne ocupam de setarea informatiilor din cardurile cu cartii
-    public ObservableList<CarteData> meniuGetData(){
-        return cardListData;
+    public ObservableList<CarteData> meniuGetData() {
+        // query sa luam datele din baza
+        String SqlGetData = "SELECT * FROM inventar_carti";
+        ObservableList<CarteData> listData = FXCollections.observableArrayList();
+        connect = database.connectDB();
+        try {
+            // executam query
+            prepare = connect.prepareStatement(SqlGetData);
+            result = prepare.executeQuery();
+
+            CarteData carte;
+            // mapam in constructor datele din baza
+            while (result.next()) {
+                carte = new CarteData(result.getInt("id"),
+                        result.getString("id_carte"),
+                        result.getString("nume_carte"),
+                        result.getDouble("pret_carte"),
+                        result.getString("image")
+                );
+                // adaugam in lista pentru carduri obiectul
+                listData.add(carte);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // returnam lista cu date pentru carduri
+        return listData;
     }
-    
+
+    // metoda sa afisam cardurile
+    public void meniuDisplayCard() {
+        cardListData.clear();
+        // adaugam datele in lista cu datele pentru carduri
+        cardListData.addAll(meniuGetData());
+        // iteram prin lista cu date
+        int row = 0;
+        int column = 0;
+        meniu_gridPane.getRowConstraints().clear();
+        meniu_gridPane.getColumnConstraints().clear();
+        for (int i = 0; i < cardListData.size(); i++) {
+            try {
+                // cream un loader nou
+                FXMLLoader load = new FXMLLoader();
+                // luam fxml pentru carduri
+                load.setLocation(getClass().getResource("CardCarte.fxml"));
+                AnchorPane pane = load.load();
+                // luam controlleru pentru carduri
+                CardCarteController cardController = load.getController();
+                // ii atribuim controllerului datele pentru elementul din lista de la iteratia i
+                cardController.setData(cardListData.get(i));
+                // in felul asta sa avem maxim 2 carduri pe rand
+                if (column == 4) {
+                    column = 0;
+                    row++;
+                }
+                // adaugam in gridPane la coloana si randul respectiv cardul    
+                meniu_gridPane.add(pane, column++, row);
+                GridPane.setMargin(pane, new Insets(10));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void inventarSelectBook() {
         // selectam din tabel respectiva carte si completam informatiile ei in field-uri
         CarteData carte = inventar_tabel.getSelectionModel().getSelectedItem();
@@ -372,7 +433,7 @@ public class mainFormController implements Initializable {
     // stergem cartea din baza de date la ID respectiv
     public void inventarDeleteBtn() {
         //verificarea initiala daca id exista
-        if ( data.id == 0) {
+        if (data.id == 0) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle(Constants.ErrorMessages.TitluEroare);
             alert.setHeaderText(null);
@@ -521,6 +582,8 @@ public class mainFormController implements Initializable {
         TipCartiInventarInitializare();
         // luam datele din baza de date
         InventoryShowData();
+        // pentru a face display la carduri
+        meniuDisplayCard();
     }
 
 }
