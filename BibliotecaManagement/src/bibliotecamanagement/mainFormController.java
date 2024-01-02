@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -168,6 +169,9 @@ public class mainFormController implements Initializable {
 
     @FXML
     private TableView<?> meniu_tableView;
+
+    @FXML
+    private AnchorPane bord_form;
 
     @FXML
     private Label meniu_total;
@@ -321,6 +325,7 @@ public class mainFormController implements Initializable {
         // iteram prin lista cu date
         int row = 0;
         int column = 0;
+        meniu_gridPane.getChildren().clear();
         meniu_gridPane.getRowConstraints().clear();
         meniu_gridPane.getColumnConstraints().clear();
         for (int i = 0; i < cardListData.size(); i++) {
@@ -366,6 +371,28 @@ public class mainFormController implements Initializable {
         data.id = carte.getId();
         image = new Image(path, 120, 140, false, true);
         inventar_image.setImage(image);
+    }
+
+    public void switchForm(ActionEvent event) {
+        if (event.getSource() == bord_btn) {
+            meniu_form.setVisible(false);
+            inventar_form.setVisible(false);
+            bord_form.setVisible(true);
+        } else if (event.getSource() == inventar_btn) {
+            meniu_form.setVisible(false);
+            inventar_form.setVisible(true);
+            bord_form.setVisible(false);
+            // setam variantele in drop down cu tipul cartii
+            TipCartiInventarInitializare();
+            // luam datele din baza de date
+            InventoryShowData();
+        } else if (event.getSource() == meniu_btn) {
+            meniu_form.setVisible(true);
+            inventar_form.setVisible(false);
+            bord_form.setVisible(false);
+            // pentru a face display la carduri
+            meniuDisplayCard();
+        }
     }
 
     public void inventarUpdateBtn() {
