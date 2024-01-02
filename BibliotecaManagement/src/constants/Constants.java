@@ -35,11 +35,14 @@ public class Constants {
         public static final String ParolaActualizata = "Parola a fost actualizata cu succes!";
         public static final String CarteaAdaugata = "Cartea a fost inregistrata cu succes!";
         public static final String CarteActualizata = "Cartea a fost actualizata cu succes!";
+        public static final String CarteaStearsa = "Cartea a fost stearsa cu succes!";
         
-        public static final String SignOut = "Sunteti siguri ca doriti sa parasiti sesiunea?";
+        public static final String SignOut = "Sunteti sigur ca doriti sa parasiti sesiunea?";
+        public static final String StergereCarte = "Suntetit sigur ca doriti sa stergeti aceasta carte?";
         public static final String ActualizareCarte = "Sunteti sigur ca doriti sa actualizati informatiile cartii?";
         public static final String Confirmare = "Mesaj de confirmare!";
         public static final String ActualizareAnulata = "Actiunea de actualizare a fost anulata!";
+        public static final String StergereAnulata = "Actiunea de stergere a fost anualata!";
     }
     
     public class Utils{

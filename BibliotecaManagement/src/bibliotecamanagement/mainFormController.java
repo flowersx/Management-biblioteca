@@ -31,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -39,6 +40,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -135,6 +137,39 @@ public class mainFormController implements Initializable {
 
     @FXML
     private Button signOut_btn;
+    
+     @FXML
+    private Button meniu_DeleteBtn;
+
+    @FXML
+    private Button meniu_PayBtn;
+
+    @FXML
+    private ScrollPane meniu_ScrollPane;
+
+    @FXML
+    private TextField meniu_cantitate;
+
+    @FXML
+    private TableColumn<?, ?> meniu_col_Pret;
+
+    @FXML
+    private TableColumn<?, ?> meniu_col_cantitate;
+
+    @FXML
+    private TableColumn<?, ?> meniu_col_numeCarte;
+
+    @FXML
+    private AnchorPane meniu_form;
+
+    @FXML
+    private GridPane meniu_gridPane;
+
+    @FXML
+    private TableView<?> meniu_tableView;
+
+    @FXML
+    private Label meniu_total;
 
     private Alert alert;
 
@@ -322,6 +357,52 @@ public class mainFormController implements Initializable {
 
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+
+        }
+    }
+
+    // stergem cartea din baza de date la ID respectiv
+    public void inventarDeleteBtn() {
+        //verificarea initiala daca id exista
+        if ( data.id == 0) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle(Constants.ErrorMessages.TitluEroare);
+            alert.setHeaderText(null);
+            alert.setContentText(Constants.ErrorMessages.BlankFields);
+            alert.showAndWait();
+        } else {
+            //popup de confirmare
+            alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle(Constants.ErrorMessages.Confirmare);
+            alert.setHeaderText(null);
+            alert.setContentText(Constants.ErrorMessages.StergereCarte);
+            Optional<ButtonType> option = alert.showAndWait();
+            // daca a fost confirmata stergerea
+            if (option.get().equals(ButtonType.OK)) {
+                String deleteCarte = "DELETE FROM inventar_carti WHERE id = " + data.id;
+                try {
+                    prepare = connect.prepareStatement(deleteCarte);
+                    prepare.executeUpdate();
+                    // sa dam refresh la data
+                    InventoryShowData();
+                    // sa facem clear la fielduri
+                    inventarClearBtn();
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle(Constants.ErrorMessages.TitluInformatie);
+                    alert.setHeaderText(null);
+                    alert.setContentText(Constants.ErrorMessages.CarteaStearsa);
+                    alert.showAndWait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                // daca nu a fost confirmata stergerea
+            } else {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle(Constants.ErrorMessages.TitluEroare);
+                alert.setHeaderText(null);
+                alert.setContentText(Constants.ErrorMessages.StergereAnulata);
+                alert.showAndWait();
             }
 
         }
