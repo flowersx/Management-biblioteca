@@ -16,6 +16,7 @@ public class database {
     public static Connection connectDB(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
+            // ne conectam la baza de date locala folosin conenction string
             Connection connect  = DriverManager.getConnection("jdbc:mysql://localhost/library", "root","");
             return connect;
         }catch(Exception e){

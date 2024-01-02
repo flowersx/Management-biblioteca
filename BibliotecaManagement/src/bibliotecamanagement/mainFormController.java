@@ -179,6 +179,8 @@ public class mainFormController implements Initializable {
     private ResultSet result;
 
     private Image image;
+    
+    private ObservableList<CarteData> cardListData;
 
     // practic aici unim toate informatiile pentru a le afisa din tabel
     public ObservableList<CarteData> inventoryDataList() {
@@ -193,6 +195,7 @@ public class mainFormController implements Initializable {
             CarteData carteData;
             //cat timp avem date in rezultat vom crea un nou obiect de tipul carte pe care il adaugam in lista cu toate cartile
             while (result.next()) {
+                // mapam coloanele din baza la proprietatile obiectului din constructor
                 carteData = new CarteData(result.getInt("id"),
                         result.getString("nume_carte"),
                         result.getString("id_carte"),
@@ -278,7 +281,12 @@ public class mainFormController implements Initializable {
             }
         }
     }
-
+    
+    // aici ne ocupam de setarea informatiilor din cardurile cu cartii
+    public ObservableList<CarteData> meniuGetData(){
+        return cardListData;
+    }
+    
     public void inventarSelectBook() {
         // selectam din tabel respectiva carte si completam informatiile ei in field-uri
         CarteData carte = inventar_tabel.getSelectionModel().getSelectedItem();
@@ -297,7 +305,6 @@ public class mainFormController implements Initializable {
         data.id = carte.getId();
         image = new Image(path, 120, 140, false, true);
         inventar_image.setImage(image);
-
     }
 
     public void inventarUpdateBtn() {
@@ -418,6 +425,7 @@ public class mainFormController implements Initializable {
         inventar_Stoc.setText(Constants.Utils.EMPTY_STRING);
         data.path = Constants.Utils.EMPTY_STRING;
         inventar_image.setImage(null);
+        // resetam si datele din variabila comuna data
         data.id = 0;
         data.path = Constants.Utils.EMPTY_STRING;
 
@@ -451,21 +459,23 @@ public class mainFormController implements Initializable {
         inventar_tabel_date.setCellValueFactory(new PropertyValueFactory<>("date"));
         inventar_tabel_gen.setCellValueFactory(new PropertyValueFactory<>("GenCarte"));
         inventar_tabel_stoc.setCellValueFactory(new PropertyValueFactory<>("StocCarte"));
-
+        // aici setam obiectul care va popula cu informatii tabelul
         inventar_tabel.setItems(inventoryListData);
 
     }
 
     public void TipCartiInventarInitializare() {
+        // initializam lista din drop down pe care o aveam din fisierul de constante
         List<String> tipuriCarti = new ArrayList<>(Arrays.asList(Constants.TipurCarti));
 
         ObservableList listData = FXCollections.observableArrayList(tipuriCarti);
-
+        // setam in drop down lista cu alegerile
         inventar_Gen.setItems(listData);
     }
 
     public void signOut() {
         try {
+            // pop up de confirmare daca vrem sa ne delogam
             alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle(Constants.ErrorMessages.Confirmare);
             alert.setHeaderText(null);
@@ -495,17 +505,21 @@ public class mainFormController implements Initializable {
     }
 
     public void displayUsername() {
+        // luam username din variabila comuna data
         String user = data.username;
         user = user.substring(0, 1).toUpperCase() + user.substring(1);
-
+        // setam valoarea in label
         numeUtilizator.setText(user);
     }
 
     // Se apeleaza atunci cand se intializeaza componenta
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // setam username conectat
         displayUsername();
+        // setam variantele in drop down cu tipul cartii
         TipCartiInventarInitializare();
+        // luam datele din baza de date
         InventoryShowData();
     }
 

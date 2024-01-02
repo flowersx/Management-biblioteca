@@ -37,6 +37,14 @@ public class CarteData {
         this.Image = image;
     }
     
+    public CarteData(Integer id, String idCarte, String numeCarte, Double pretCarte, String image){
+        this.Id = id;
+        this.IdCarte = idCarte;
+        this.NumeCarte = numeCarte;
+        this.PretCarte = pretCarte;
+        this.Image = image;
+    }
+    
     public Integer getId(){
         return Id;
     }
