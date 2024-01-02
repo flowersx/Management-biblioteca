@@ -122,18 +122,23 @@ public class FXMLDocumentController implements Initializable {
 
     private Alert alert;
 
+    // setam fieldurile de inregistrare sa fie goale
     public void ReseteazaInregistrarea() {
         inregistare_utilizator.setText(EMPTY_STRING);
         inregistare_parola.setText(EMPTY_STRING);
         inregistare_intrebare.getSelectionModel().clearSelection();
         inregistare_raspuns.setText(EMPTY_STRING);
     }
-
+    // facem side menu sa isi dea slide cu o animatie spre dreapta
     public void SlideRight(TranslateTransition slider) {
+        // setam nodu cu animatia respectiva
         slider.setNode(login_sideForm);
+        // se va duce 300 de pixeli spre dreapta
         slider.setToX(300);
+        // durata animatiei
         slider.setDuration(Duration.seconds(.5));
-
+        
+        // atunci cand e gata setam vizibila inregistrarea si invizibila logareea
         slider.setOnFinished((ActionEvent e) -> {
             login_dejaAvetiContButon.setVisible(true);
             login_inregistrareButon.setVisible(false);
@@ -145,7 +150,7 @@ public class FXMLDocumentController implements Initializable {
         requiredQuestionList();
         slider.play();
     }
-
+    // la fel ca cel spre dreapta dar spre stanga
     public void SliderLeft(TranslateTransition slider) {
         slider.setNode(login_sideForm);
         slider.setToX(0);
@@ -164,6 +169,7 @@ public class FXMLDocumentController implements Initializable {
         slider.play();
     }
 
+    // seteaza login formu sa nu mai fie vizibil si apare pagina sa confirmi identitatea pentru resetarea parolei
     public void switchForgotPassword() {
         forgot_password.setVisible(true);
         login_form.setVisible(false);
@@ -182,6 +188,7 @@ public class FXMLDocumentController implements Initializable {
             if (confirmare_parola_fp.getText().equals(parola_noua_fp.getText())) {
                 connect = database.connectDB();
                 try {
+                    // luam date-ul pt actualizare
                     String getDate = "SELECT date FROM users WHERE username ='"
                             + utilizator_fp.getText() + "'";
                     ResultSet result;
@@ -191,6 +198,7 @@ public class FXMLDocumentController implements Initializable {
                     if (result.next()) {
                         date = result.getString("date");
                     }
+                    // actualizam parola la respectivul username
                     String updatePassword = "UPDATE users SET password='"
                             + parola_noua_fp.getText() + "', date='"
                             + date + "' WHERE username = '"
@@ -203,7 +211,7 @@ public class FXMLDocumentController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText(Constants.ErrorMessages.ParolaActualizata);
                     alert.showAndWait();
-
+                    // facem din nou vizibila pagina de login
                     login_form.setVisible(true);
                     reset_password.setVisible(false);
 
@@ -221,16 +229,18 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    // inapoi la pagina de logare
     public void BackToLoginForm() {
         forgot_password.setVisible(false);
         login_form.setVisible(true);
     }
-
+    // inapoi la pagina de verificare a indentitatii
     public void BackToQuestionForm() {
         forgot_password.setVisible(true);
         reset_password.setVisible(false);
     }
-
+    
+    //resetam fieldurile de resetare a parolei
     public void clearResetPassword() {
         parola_noua_fp.setText(Constants.Utils.EMPTY_STRING);
         confirmare_parola_fp.setText(Constants.Utils.EMPTY_STRING);
@@ -239,7 +249,9 @@ public class FXMLDocumentController implements Initializable {
         raspuns_fp_form.setText(Constants.Utils.EMPTY_STRING);
     }
 
+    
     public void proceedButton() {
+        // verificam daca fieldurile sunt goale
         if (raspuns_fp_form.getText().isEmpty()
                 || utilizator_fp.getText().isEmpty()
                 || intrebari_fp_form.getSelectionModel().getSelectedItem() == null) {
@@ -249,6 +261,7 @@ public class FXMLDocumentController implements Initializable {
             alert.setContentText(Constants.ErrorMessages.BlankFields);
             alert.showAndWait();
         } else {
+            // verificam identitate
             String selectData = "SELECT username, question, answer FROM users WHERE username = ? "
                     + "AND answer = ?"
                     + "AND question = ?";
@@ -262,9 +275,11 @@ public class FXMLDocumentController implements Initializable {
                 ResultSet result;
                 result = prepare.executeQuery();
                 if (result.next()) {
+                    // facem vizibila partea de resetare deoarece identitatea a fost confirmata
                     reset_password.setVisible(true);
                     forgot_password.setVisible(false);
                 } else {
+                    // in caz contrar spunem ca informatiile oferite sunt gresite
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle(Constants.ErrorMessages.TitluEroare);
                     alert.setHeaderText(null);
@@ -279,6 +294,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void butonLogin() {
+        // verificam sa nu fie fieldurile goale
         if (login_utilizator.getText().isEmpty() || login_parola.getText().isEmpty()) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle(Constants.ErrorMessages.TitluEroare);
@@ -286,6 +302,7 @@ public class FXMLDocumentController implements Initializable {
             alert.setContentText(Constants.ErrorMessages.BlankFields);
             alert.showAndWait();
         } else {
+            // verificam username si parola din baza de date sa vedem daca exista un user cu aceasta parola
             String selectData = "Select username, password FROM users WHERE username = ? AND password = ?";
             connect = database.connectDB();
             try {
@@ -336,6 +353,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void butonInregistrare() {
+        //verificam fieldurile sa nu fie goale
         if (inregistare_raspuns.getText().isEmpty()
                 || inregistare_parola.getText().isEmpty()
                 || inregistare_intrebare.getSelectionModel().getSelectedItem() == null
@@ -347,17 +365,20 @@ public class FXMLDocumentController implements Initializable {
             alert.setContentText(Constants.ErrorMessages.BlankFields);
             alert.showAndWait();
         } else {
+            // inseram datele noului utilizator in baza
             String requiredData = "INSERT INTO users (username, password, question, answer, date) "
                     + "VALUES (?,?,?,?,?)";
             connect = database.connectDB();
 
             try {
+                // verificam sa nu exista un username cu aceelasi nume
                 if (checkUsername(inregistare_utilizator.getText())) {
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle(Constants.ErrorMessages.TitluEroare);
                     alert.setHeaderText(null);
                     alert.setContentText("Numele de utilizator " + inregistare_utilizator.getText() + " este deja folosit!");
                     alert.showAndWait();
+                    // verificam sa nu fie parola prea scurta
                 } else if (inregistare_parola.getText().length() < 8) {
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle(Constants.ErrorMessages.TitluEroare);
@@ -365,6 +386,7 @@ public class FXMLDocumentController implements Initializable {
                     alert.setContentText(Constants.ErrorMessages.PasswordTooShort);
                     alert.showAndWait();
                 } else {
+                    // in caz ca totul este o executam query
                     prepare = connect.prepareStatement(requiredData);
                     prepare.setString(1, inregistare_utilizator.getText());
                     prepare.setString(2, inregistare_parola.getText());
@@ -398,14 +420,15 @@ public class FXMLDocumentController implements Initializable {
     private Boolean checkUsername(String username) {
         connect = database.connectDB();
         ResultSet result;
+        // selectam din baza unsername acolo unde este egal cu cel trimis ca parametru
         String checkUsername = "Select username FROM users WHERE username = '"
                 + username + "'";
         try {
             prepare = connect.prepareStatement(checkUsername);
             result = prepare.executeQuery();
             return result.next();
-        } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -416,21 +439,21 @@ public class FXMLDocumentController implements Initializable {
         Constants.Questions.Question_4,
         Constants.Questions.Question_5
     };
-
+    // initailizam din baza intrebarile legate de securitate
     public void forgotPasswordQuestionList() {
         List<String> listQuestions = new ArrayList<>(Arrays.asList(questionList));
 
         ObservableList listData = FXCollections.observableArrayList(listQuestions);
         intrebari_fp_form.setItems(listData);
     }
-
+    // am realizat dupa ca am cod duplicat
     public void requiredQuestionList() {
         List<String> listQuestions = new ArrayList<>(Arrays.asList(questionList));
 
         ObservableList listData = FXCollections.observableArrayList(listQuestions);
         inregistare_intrebare.setItems(listData);
     }
-
+    // aici verificam pe care parte se afla side form ca sa stim daca dam swithc pe inregistrare sau logare
     public void swithcForm(ActionEvent event) {
         TranslateTransition slider = new TranslateTransition();
         if (event.getSource() == login_inregistrareButon) {
