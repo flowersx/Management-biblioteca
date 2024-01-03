@@ -29,6 +29,7 @@ public class Constants {
         public static final String WrongInformations = "Informatii incorecte";
         public static final String PasswordDontMatch = "Parolele trebuie sa coincida";
         public static final String CevaNuAMersBine = "Ceva nu a mers bine!";
+        public static final String NoStoc = "Ne pare rau stocul nostru este 0 sau prea mic!";
         
         public static final String TitluInformatie = "Mesaj de informare";
         public static final String InregistrareCont = "Contul a fost inregistrat cu succes!";
@@ -37,6 +38,7 @@ public class Constants {
         public static final String CarteaAdaugata = "Cartea a fost inregistrata cu succes!";
         public static final String CarteActualizata = "Cartea a fost actualizata cu succes!";
         public static final String CarteaStearsa = "Cartea a fost stearsa cu succes!";
+        public static final String AdaugatCuSucces = "A fost adaugat cu succes!";
         
         public static final String SignOut = "Sunteti sigur ca doriti sa parasiti sesiunea?";
         public static final String StergereCarte = "Suntetit sigur ca doriti sa stergeti aceasta carte?";

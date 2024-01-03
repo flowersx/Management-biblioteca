@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.BarChart?>
@@ -355,8 +356,25 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="meniu_cantitate" layoutX="150.0" layoutY="304.0" prefHeight="25.0" prefWidth="114.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="304.0" />
-                                    <Button fx:id="meniu_DeleteBtn" layoutX="35.0" layoutY="463.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="117.0" styleClass="nav-btn" stylesheets="@Styles/MainFormStyle.css" text="Sterge" AnchorPane.topAnchor="463.0" />
-                                    <Button fx:id="meniu_PayBtn" layoutX="173.0" layoutY="463.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="117.0" styleClass="nav-btn" stylesheets="@Styles/MainFormStyle.css" text="Plateste" AnchorPane.topAnchor="463.0" />
+                                    <Button fx:id="meniu_DeleteBtn" layoutX="35.0" layoutY="463.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="117.0" styleClass="act-btn" text="Sterge" AnchorPane.topAnchor="463.0">
+                                       <stylesheets>
+                                          <URL value="@Styles/MainFormStyle.css" />
+                                          <URL value="@Styles/CardStyle.css" />
+                                       </stylesheets></Button>
+                                    <Button fx:id="meniu_PayBtn" layoutX="173.0" layoutY="463.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="117.0" styleClass="act-btn" text="Plateste" AnchorPane.topAnchor="463.0">
+                                       <stylesheets>
+                                          <URL value="@Styles/MainFormStyle.css" />
+                                          <URL value="@Styles/CardStyle.css" />
+                                       </stylesheets></Button>
+                                    <Button fx:id="meniu_refreshBtn" layoutX="10.0" layoutY="528.0" mnemonicParsing="false" onAction="#showComanda" prefHeight="30.0" prefWidth="23.0" styleClass="act-btn">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="REFRESH" />
+                                       </graphic>
+                                       <stylesheets>
+                                          <URL value="@Styles/MainFormStyle.css" />
+                                          <URL value="@Styles/CardStyle.css" />
+                                       </stylesheets>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </children>

@@ -11,7 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -23,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import models.CarteData;
+import models.data;
 
 /**
  *
@@ -66,11 +69,13 @@ public class CardCarteController implements Initializable {
     public void setData(CarteData carteData) {
         this.carteData = carteData;
 
+        IdCarte = carteData.getIdCarte();
         card_numeCarte.setText(carteData.getNumeCarte());
         card_pretCarte.setText(String.valueOf(carteData.getPretCarte()) + " RON");
         String path = "File:" + carteData.getImage();
         image = new Image(path, 210, 90, false, true);
         card_imageView.setImage(image);
+        pret = carteData.getPretCarte();
 
     }
     private int cantitate;
@@ -81,7 +86,9 @@ public class CardCarteController implements Initializable {
         // setam proprietatea spinerului din UI
         card_spinner.setValueFactory(spin);
     }
-
+    private double pretTotal;
+    private double pret;
+     
     public void addBtn() {
         cantitate = card_spinner.getValue();
         Integer stoc = 0;
@@ -90,7 +97,7 @@ public class CardCarteController implements Initializable {
         connect = database.connectDB();
 
         try {
-            prepare = connect.prepareCall(verificaStoc);
+            prepare = connect.prepareStatement(verificaStoc);
             result = prepare.executeQuery();
             if (result.next()) {
                 stoc = result.getInt("stoc_carte");
@@ -102,8 +109,51 @@ public class CardCarteController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText(Constants.ErrorMessages.CevaNuAMersBine);
                 alert.showAndWait();
-            }else {
-                // TO DO fa si tu un tabel pt clienti si tot procedeul de cumparare a cartii
+            }else if(stoc == 0){
+                // in caz ca stocul este 0
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(Constants.ErrorMessages.TitluEroare);
+                alert.setHeaderText(null);
+                alert.setContentText(Constants.ErrorMessages.NoStoc);
+                alert.showAndWait();
+            } 
+            else {
+                // scadem din stoc cantitatea adaugata pentru a calcula stocul nou
+                Integer stocNou = stoc - cantitate;
+                // selectam din baza id ul clientului
+                String getClient_id = "SELECT id FROM users WHERE username ='"
+                        + data.username + "'";
+                Integer client_id = 0;
+                prepare = connect.prepareStatement(getClient_id);
+                result = prepare.executeQuery();
+                if (result.next()) {
+                    client_id = result.getInt("id");
+                }
+                // inseram datele in tabelul cu clienti practic asta reprezinta comanda individuala per carte
+                String insertData = "INSERT INTO clientii (client_id, nume_carte, cantitate, pret, date, username)"
+                        + " VALUES(?, ?, ?, ?, ?, ?)";
+                prepare = connect.prepareStatement(insertData);
+                prepare.setString(1, String.valueOf(client_id));
+                prepare.setString(2, card_numeCarte.getText());
+                prepare.setString(3, String.valueOf(cantitate));
+                pretTotal = (cantitate * pret);
+                prepare.setString(4, String.valueOf(pretTotal));
+                Date date = new Date();
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                prepare.setString(5, String.valueOf(sqlDate));
+                prepare.setString(6, data.username);
+                prepare.executeUpdate();
+                // actualizam stocul de carti 
+                String updateStoc = "UPDATE inventar_carti SET stoc_carte = "
+                        + String.valueOf(stocNou) + " WHERE id_carte ='"
+                        + IdCarte + "'";
+                prepare = connect.prepareStatement(updateStoc);
+                prepare.executeUpdate();
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(Constants.ErrorMessages.TitluInformatie);
+                alert.setHeaderText(null);
+                alert.setContentText(Constants.ErrorMessages.AdaugatCuSucces);
+                alert.showAndWait();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,6 +162,7 @@ public class CardCarteController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setQuantity();
     }
 
 }

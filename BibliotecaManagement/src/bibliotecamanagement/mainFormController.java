@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,6 +49,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javax.naming.spi.DirStateFactory;
 import models.CarteData;
+import models.ClientComanda;
 import models.data;
 
 /**
@@ -153,13 +155,13 @@ public class mainFormController implements Initializable {
     private TextField meniu_cantitate;
 
     @FXML
-    private TableColumn<?, ?> meniu_col_Pret;
+    private TableColumn<ClientComanda, String> meniu_col_Pret;
 
     @FXML
-    private TableColumn<?, ?> meniu_col_cantitate;
+    private TableColumn<ClientComanda, String> meniu_col_cantitate;
 
     @FXML
-    private TableColumn<?, ?> meniu_col_numeCarte;
+    private TableColumn<ClientComanda, String> meniu_col_numeCarte;
 
     @FXML
     private AnchorPane meniu_form;
@@ -168,7 +170,7 @@ public class mainFormController implements Initializable {
     private GridPane meniu_gridPane;
 
     @FXML
-    private TableView<?> meniu_tableView;
+    private TableView<ClientComanda> meniu_tableView;
 
     @FXML
     private AnchorPane bord_form;
@@ -217,6 +219,45 @@ public class mainFormController implements Initializable {
             e.printStackTrace();
         }
         return cartiDataLista;
+    }
+    
+    public ObservableList<ClientComanda> displayComanda(){
+        ObservableList<ClientComanda> listData = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM clientii WHERE username = '"
+                + data.username + "'";
+        //selectam toate coloanele din tabelul de clientii si le mapam la prop obiectului
+        connect = database.connectDB();
+        try{    
+            
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            ClientComanda item;
+            while(result.next()){
+                item = new ClientComanda(result.getInt("id"),
+                    result.getInt("client_id"),
+                    result.getString("nume_carte"),
+                    result.getInt("cantitate"),
+                    result.getInt("pret"),
+                    result.getDate("date"),
+                    result.getString("username"));
+                listData.add(item);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return listData;
+    }
+    
+    private ObservableList<ClientComanda> menuCarteListData;
+
+    public void showComanda() {
+        menuCarteListData = displayComanda();
+        
+        meniu_col_numeCarte.setCellValueFactory(new PropertyValueFactory("NumeCarte"));
+        meniu_col_cantitate.setCellValueFactory(new PropertyValueFactory("Cantitate"));
+        meniu_col_Pret.setCellValueFactory(new PropertyValueFactory("Pret"));
+        
+        meniu_tableView.setItems(menuCarteListData);
     }
 
     public void inventarAddBtn() {
@@ -392,6 +433,8 @@ public class mainFormController implements Initializable {
             bord_form.setVisible(false);
             // pentru a face display la carduri
             meniuDisplayCard();
+            // pentru a face display in tabel la comanda activa
+            showComanda();
         }
     }
 
@@ -516,7 +559,6 @@ public class mainFormController implements Initializable {
         // resetam si datele din variabila comuna data
         data.id = 0;
         data.path = Constants.Utils.EMPTY_STRING;
-
     }
 
     // butonul de import pt a adauga imaginea cartii
@@ -611,6 +653,8 @@ public class mainFormController implements Initializable {
         InventoryShowData();
         // pentru a face display la carduri
         meniuDisplayCard();
+        // pentru a face display la comanda activa in tabel
+        showComanda();
     }
 
 }

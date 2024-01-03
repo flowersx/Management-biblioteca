@@ -11,6 +11,7 @@ import java.util.Date;
  * @author Florin
  */
 public class CarteData {
+
     private Integer Id;
     private String IdCarte;
     private String NumeCarte;
@@ -20,12 +21,14 @@ public class CarteData {
     private String GenCarte;
     private Integer StocCarte;
     private String Image;
-    
+    private String ClientId;
+
+    // Public constructor
     public CarteData(Integer id, String idCarte,
             String numeCarte, String descriereCarte,
             Double pretCarte, Date date,
             String genCarte, Integer stocCarte,
-            String image){
+            String image) {
         this.Id = id;
         this.NumeCarte = numeCarte;
         this.IdCarte = idCarte;
@@ -36,48 +39,50 @@ public class CarteData {
         this.StocCarte = stocCarte;
         this.Image = image;
     }
-    
-    public CarteData(Integer id, String idCarte, String numeCarte, Double pretCarte, String image){
+
+    // Public constructor
+    public CarteData(Integer id, String idCarte, String numeCarte, Double pretCarte, String image) {
         this.Id = id;
         this.IdCarte = idCarte;
         this.NumeCarte = numeCarte;
         this.PretCarte = pretCarte;
         this.Image = image;
     }
-    
-    public Integer getId(){
+    // Getters and setters 
+
+    public Integer getId() {
         return Id;
     }
-    
-    public String getIdCarte(){
+
+    public String getIdCarte() {
         return IdCarte;
     }
-    
-    public String getNumeCarte(){
+
+    public String getNumeCarte() {
         return NumeCarte;
     }
-    
-    public String getDescriereCarte(){
+
+    public String getDescriereCarte() {
         return DescriereCarte;
     }
-    
-    public Double getPretCarte(){
+
+    public Double getPretCarte() {
         return PretCarte;
     }
-    
-    public Date getDate(){
+
+    public Date getDate() {
         return Date;
     }
-    
-    public String getGenCarte(){
+
+    public String getGenCarte() {
         return GenCarte;
     }
-    
-    public Integer getStocCarte(){
+
+    public Integer getStocCarte() {
         return StocCarte;
     }
-    
-    public String getImage(){
+
+    public String getImage() {
         return Image;
     }
 }
