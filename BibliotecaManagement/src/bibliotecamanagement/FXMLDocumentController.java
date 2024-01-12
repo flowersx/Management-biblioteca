@@ -233,6 +233,7 @@ public class FXMLDocumentController implements Initializable {
     public void BackToLoginForm() {
         forgot_password.setVisible(false);
         login_form.setVisible(true);
+        clearResetPassword();
     }
     // inapoi la pagina de verificare a indentitatii
     public void BackToQuestionForm() {
